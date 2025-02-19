@@ -1,6 +1,6 @@
 # Microsoft Exchange Security Sentinel Solution - Public Contents
 
-**Exchange Servers** have recently been the target of many attacks. The cases and escalations opened recently have revealed poorly managed environments. Exchange Server security assessments regularly discover many insecured configurations putting the messaging system at risk of being compromised without much effort. However Exchange Servers are rarely monitored sufficiently from a security perspective and traces and logs often can’t be collected on time when investigations need to be performed
+**Exchange Servers** have recently been the target of many attacks. The cases and escalations opened recently have revealed poorly managed environments. Exchange Server security assessments regularly discover many insecured configurations putting the messaging system at risk of being compromised without much effort. However Exchange Servers are rarely monitored sufficiently from a security perspective and traces and logs often can’t be collected on time when investigations need to be performed.
 
 Introducing **M**icrosoft **E**xchange **S**ecurity Solution
 
