@@ -37,7 +37,7 @@ CollectExchSecIns.ps1  ->  DCE + DCRs + tables (ARM template)  ->  JSON / Winfor
 - Owner or Contributor on the target resource group.
 - Access to the Log Analytics workspace hosting the current ESI tables.
 - Ability to update the Automation Account `GlobalConfiguration` variable or the on-premises configuration file.
-- (Recommended) Access to the [WinformConfig editor](../../ExchSecIns/WinformConfig/Readme.md) to edit `CollectExchSecConfiguration.json` interactively.
+- (Recommended) Access to the [WinformConfig editor](WinformConfigReadme.md) to edit `CollectExchSecConfiguration.json` interactively.
 
 ## Step 1 — Upgrade the collector to v8.0.0.0 or higher
 
@@ -78,7 +78,7 @@ The ARM template `azuredeploy_ESI_LogIngestionAPI.json` provisions everything yo
 
 ### 2.1 Deploy the template
 
-Deploy with Azure CLI, PowerShell, or the Azure Portal. Full instructions and parameter reference are in [README_LogIngestionAPI.md](../../ExchSecIns/Deployments/README_LogIngestionAPI.md).
+Deploy with Azure CLI, PowerShell, or the Azure Portal. Full instructions and parameter reference are in [README_LogIngestionAPI.md](./README_LogIngestionAPI.md).
 
 Minimal PowerShell deployment (deploy everything, defaults):
 
@@ -108,7 +108,7 @@ Record these values — they go into the collector configuration in Step 3:
 
 Choose one of the two authentication modes:
 
-- **Entra ID application + certificate** — recommended for on-premises and server scenarios. Follow the full procedure in [README_AzureMonitorSetup.md](../../ExchSecIns/Deployments/README_AzureMonitorSetup.md#step-1-create-a-self-signed-certificate).
+- **Entra ID application + certificate** — recommended for on-premises and server scenarios. Follow the full procedure in [README_AzureMonitorSetup.md](./README_AzureMonitorSetup.md#step-1-create-a-self-signed-certificate).
 - **System-assigned managed identity** — recommended for Azure Automation runbooks. Enable the system-assigned identity on the Automation Account.
 
 ### 2.4 Assign the ingestion role
@@ -247,6 +247,6 @@ The collector will resume publishing to the legacy tables. The DCE, DCRs, and ne
 
 ## Related documentation
 
-- ARM template and parameters: [README_LogIngestionAPI.md](../../ExchSecIns/Deployments/README_LogIngestionAPI.md)
-- End-to-end Azure Monitor setup (Entra ID app, certificate, RBAC): [README_AzureMonitorSetup.md](../../ExchSecIns/Deployments/README_AzureMonitorSetup.md)
-- WinformConfig editor: [ExchSecIns/WinformConfig/Readme.md](../../ExchSecIns/WinformConfig/Readme.md)
+- ARM template and parameters: [README_LogIngestionAPI.md](./README_LogIngestionAPI.md)
+- End-to-end Azure Monitor setup (Entra ID app, certificate, RBAC): [README_AzureMonitorSetup.md](./README_AzureMonitorSetup.md)
+- WinformConfig editor: [ExchSecIns/WinformConfig/Readme.md](./WinformConfigReadme.md)

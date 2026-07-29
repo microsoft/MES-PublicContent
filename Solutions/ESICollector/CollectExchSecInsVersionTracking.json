@@ -2,7 +2,7 @@
     "LatestVersion":"7.6.0.1",
     "LatestVersionDate":"2024-07-26T00:00:00.000Z",
     "LatestVersionDownload":"https://aka.ms/ESI-ExchangeCollector-RawScript",
-    "ESICollectorRawRepository":"https://github.com/nlepagnez/ESI-PublicContent/raw/main/Solutions/ESICollector/",
+    "ESICollectorRawRepository":"https://github.com/nlepagnez/ESI-PublicContent/raw/main/Solutions/ESICollector",
     "VersionHistory":[
         {
             "Version":"7.6.0.1",

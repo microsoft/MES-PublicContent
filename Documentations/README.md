@@ -14,8 +14,29 @@ https://github.com/nlepagnez/ESI-PublicContent/blob/main/Documentations/Deployme
 ## Collectors Information
 https://github.com/nlepagnez/ESI-PublicContent/blob/main/Documentations/ESICollector.md
 
+## Deploy the Azure Monitor Log Ingestion API (DCE / DCR / custom tables)
+https://github.com/nlepagnez/ESI-PublicContent/blob/main/Documentations/README_LogIngestionAPI.md
+
+## Azure Monitor End-to-End Setup (Entra ID application, certificate, RBAC)
+https://github.com/nlepagnez/ESI-PublicContent/blob/main/Documentations/README_AzureMonitorSetup.md
+
+## Migrate from the Log Analytics HTTP Data Collector API to the Log Ingestion API
+https://github.com/nlepagnez/ESI-PublicContent/blob/main/Documentations/Migrate_From_LogAnalyticsAPI_To_LogIngestionAPI.md
+
+## WinformConfig editor for CollectExchSecConfiguration.json
+https://github.com/nlepagnez/ESI-PublicContent/blob/main/Documentations/WinformConfigReadme.md
+
+## Forwarder / Pickup deployment
+https://github.com/nlepagnez/ESI-PublicContent/blob/main/Documentations/README-ForwarderPickup.md
+
+## Forwarder quick start
+https://github.com/nlepagnez/ESI-PublicContent/blob/main/Documentations/QUICKSTART-Forwarder.md
+
 ## How to deploy Woorkbooks
 https://github.com/nlepagnez/ESI-PublicContent/blob/main/Documentations/WorkbookDeployement.md
+
+## Workbook delegation
+https://github.com/nlepagnez/ESI-PublicContent/blob/main/Documentations/WorkbookDelegation.md
 
 ## VIP Management
 https://github.com/nlepagnez/ESI-PublicContent/blob/main/Documentations/VIPManagement.md
