@@ -1467,12 +1467,14 @@ $Script:SupportedConfigurationVersion = "2.4"
             $ProcessedData = $script:Results[$OutputName]
         }
 
+        $ProcessedData = @($ProcessedData)
+
         $OutputOptions = Get-OutputOptions -OutputName $OutputName
         $OutputSentinelAPI = $OutputOptions.OutputSentinelAPI
 
         try
         {   
-            $ResultInjsonFormat = $ProcessedData | ConvertTo-Json -Compress
+            $ResultInjsonFormat = ConvertTo-Json -InputObject $ProcessedData -Compress -Depth 10
             $Global:InjectionTest += $ProcessedData
         }
         catch
@@ -1500,7 +1502,7 @@ $Script:SupportedConfigurationVersion = "2.4"
             Write-LogMessage -Message ("Upload payload size is less than $($Script:MaximalSentinelPacketSizeMb)Mb. It will be sent in 1 segment to $OutputSentinelAPI")
 
             try {
-                $result = Send-SentinelSegment -SegmentData $ResultInjsonFormat -LogType $OutputSentinelAPI -MaxSize $maxSize -SegmentLabel "segment 1/1"
+                $result = Send-SentinelSegment -SegmentData $ProcessedData -LogType $OutputSentinelAPI -MaxSize $maxSize -SegmentLabel "segment 1/1"
                 
                 if (-not $result) {
                     Write-LogMessage -Message "Failed to send logs to Sentinel" -Level Error
@@ -1820,22 +1822,25 @@ $Script:SupportedConfigurationVersion = "2.4"
             "Content-Type"="application/json"
         }
 
+        $bodyBytes = [System.Text.Encoding]::UTF8.GetBytes($body)
+        $bodyLength = $bodyBytes.Length
+
         #validate that payload data does not exceed limits
-        if ($body.Length -gt (0.9 *1024*1024))
+        if ($bodyLength -gt (0.9 *1024*1024))
         {
-            throw("Upload payload is too big and exceed the 1Mb limit for a single upload. Please reduce the payload size. Current payload size is: " + ($body.Length/1024/1024).ToString("#.#") + "Mb")
+            throw("Upload payload is too big and exceed the 1Mb limit for a single upload. Please reduce the payload size. Current payload size is: " + ($bodyLength/1024/1024).ToString("#.#") + "Mb")
         }
 
-        Write-LogMessage -Message ("Upload payload size is " + ($body.Length/1024).ToString("#.#") + "Kb - Uri : $uri")
+        Write-LogMessage -Message ("Upload payload size is " + ($bodyLength/1024).ToString("#.#") + "Kb - Uri : $uri")
         #Write-LogMessage -Message ("Body: $body")
 
         try {
             if ($Useproxy)
             {
-                $response = Invoke-WebRequest -Uri $uri -Method $method -Headers $headers -Body $body -UseBasicParsing -Proxy $Script:ProxyUrl
+                $response = Invoke-WebRequest -Uri $uri -Method $method -Headers $headers -Body $bodyBytes -UseBasicParsing -Proxy $Script:ProxyUrl
             }
             else {
-                $response = Invoke-WebRequest -Uri $uri -Method $method -Headers $headers -Body $body -UseBasicParsing
+                $response = Invoke-WebRequest -Uri $uri -Method $method -Headers $headers -Body $bodyBytes -UseBasicParsing
             }
         }
         catch {
@@ -3822,19 +3827,25 @@ $Script:SupportedConfigurationVersion = "2.4"
                     }  
                 } 
                 else {
-                    if ($Script:SentinelLogCollector.SentinelLogIngestionAPIActivated -and $jsonConfig.Advanced.MaximalSentinelPacketSizeMb -ge 1)
+                    [double]$configuredPacketSizeMb = $jsonConfig.Advanced.MaximalSentinelPacketSizeMb
+                    if ($configuredPacketSizeMb -le 0.1)
                     {
-                        Write-LogMessage -Message "Packet size $($jsonConfig.Advanced.MaximalSentinelPacketSizeMb) greater than 1Mb. Maximum size for Sentinel is 1 Mb."
+                        throw "Advanced.MaximalSentinelPacketSizeMb must be greater than 0.1 MB."
+                    }
+
+                    if ($Script:SentinelLogCollector.SentinelLogIngestionAPIActivated -and $configuredPacketSizeMb -ge 1)
+                    {
+                        Write-LogMessage -Message "Packet size $configuredPacketSizeMb greater than 1Mb. Maximum size for Sentinel is 1 Mb."
                         $script:MaximalSentinelPacketSizeMb = 0.9
                     }
-                    elseif ($jsonConfig.Advanced.MaximalSentinelPacketSizeMb -ge 32)
+                    elseif ($configuredPacketSizeMb -ge 32)
                     {
-                        Write-LogMessage -Message "Packet size $($jsonConfig.Advanced.MaximalSentinelPacketSizeMb) greater than 31.9Mb. Maximum size for Sentinel is 31.9Mb."
+                        Write-LogMessage -Message "Packet size $configuredPacketSizeMb greater than 31.9Mb. Maximum size for Sentinel is 31.9Mb."
                         $script:MaximalSentinelPacketSizeMb = 31.9
                     }
                     else
                     {
-                        [int] $Script:MaximalSentinelPacketSizeMb = $jsonConfig.Advanced.MaximalSentinelPacketSizeMb - 0.1
+                        [double]$Script:MaximalSentinelPacketSizeMb = $configuredPacketSizeMb - 0.1
                     }
                 }
 

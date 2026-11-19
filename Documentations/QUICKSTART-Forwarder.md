@@ -1,4 +1,7 @@
-# 🚀 Quick Start Guide - Forwarder Pickup Processor
+---
+title: Quick Start Guide - Forwarder Pickup Processor
+description: Deploy and validate the ESI Forwarder Pickup Processor
+---
 
 ## Quick Installation in 5 Minutes
 
@@ -15,8 +18,8 @@ Get-Module -Name Az.Accounts -ListAvailable
 ### 2️⃣ Configuration (1 minute)
 
 ```powershell
-# Navigate to scripts folder
-cd "C:\ESI\Scripts"
+# Navigate to the Forwarder folder
+cd "C:\ESI\Scripts\Forwarder"
 
 # Copy configuration file
 Copy-Item "Config\ForwarderPickupConfig.json" "Config\ForwarderPickupConfig-BACKUP.json"
@@ -67,8 +70,8 @@ notepad "Config\ForwarderPickupConfig.json"
 
 # Customized
 .\Install-ForwarderScheduledTask.ps1 `
-    -ScriptPath "C:\ESI\Scripts\ForwarderPickupProcessor.ps1" `
-    -ConfigPath "C:\ESI\Scripts\Config\ForwarderPickupConfig.json" `
+    -ScriptPath "C:\ESI\Scripts\Forwarder\ForwarderPickupProcessor.ps1" `
+    -ConfigPath "C:\ESI\Scripts\Forwarder\Config\ForwarderPickupConfig.json" `
     -IntervalMinutes 5
 ```
 

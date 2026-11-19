@@ -1,4 +1,7 @@
-# Forwarder Pickup Processor
+---
+title: Forwarder Pickup Processor
+description: Configure and operate the ESI Forwarder Pickup Processor
+---
 
 ## 📋 Overview
 
@@ -121,7 +124,7 @@ In your `CollectExchSecConfiguration.json` configuration, enable forwarder mode:
 ```powershell
 $action = New-ScheduledTaskAction `
     -Execute "PowerShell.exe" `
-    -Argument "-NoProfile -ExecutionPolicy Bypass -File `"C:\ESI\ForwarderPickupProcessor.ps1`""
+    -Argument "-NoProfile -ExecutionPolicy Bypass -File `"C:\ESI\Scripts\Forwarder\ForwarderPickupProcessor.ps1`""
 
 $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 15) -RepetitionDuration ([TimeSpan]::MaxValue)
 
